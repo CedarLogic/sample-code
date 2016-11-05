@@ -1,22 +1,119 @@
-SASS=node_modules/.bin/node-sass
-SASS_FILES=assets/sass/main.scss
-JS_FILES=assets/js/*.js assets/js/**/*.js
-UGLIFY=node_modules/.bin/uglifyjs
-DIST_CSS=public/css
-DIST_JS=public/js
+JS_FILES=src/app.js
+DIST=dist
+TODAY=$(shell date +%Y-%B-%d)
+TIMESTAMP="//Created at $(TODAY) \n\n"
 
-all: dist app.css app.js
+all: dist app.js
 
 dist:
-	mkdir $(DIST_CSS) $(DIST_JS)
-
-app.css:
-	@ $(SASS) --output-style compressed $(SASS_FILES) > $(DIST_CSS)/$@
+	@ mkdir -p $(DIST)
 
 app.js:
-	@ cat $(JS_FILES) | $(UGLIFY) > $(DIST_JS)/$@
+  @ echo $(TIMESTAMP) > $(DIST)/$@
+  @ cat $(JS_FILES) >> $(DIST)/$@
 
 clean:
-	@rm -rf $(DIST_CSS) $(DIST_JS)
+	@ rm -rf $(DIST)
 
-.PHONY: all
+.PHONY: all clean
+
+
+###################### Step 1
+
+# all:
+#
+# clean:
+#
+# .PHONY: all clean
+
+
+###################### Step 2
+# all:
+# 	mkdir -p dist
+# 	cp app.js dist/app.js
+#
+# clean:
+# 	rm -rf dist
+#
+# .PHONY: all clean
+
+###################### Step 3
+# all:
+# 	@ mkdir -p dist
+# 	@ cp app.js dist/app.js
+#
+# clean:
+# 	@ rm -rf dist
+#
+# .PHONY: all clean
+
+###################### Step 4
+# all: dist app.js
+#
+# dist:
+# 	@ mkdir -p dist
+#
+# app.js:
+# 	@ cp src/app.js dist/app.js
+#
+# clean:
+# 	@ rm -rf dist
+#
+# .PHONY: all clean
+
+
+###################### Step 4.5
+# all: dist app.js
+#
+# dist:
+# 	@ mkdir -p $@
+#
+# app.js:
+# 	@ cp src/app.js dist/app.js
+#
+# clean:
+# 	@ rm -rf dist
+#
+# .PHONY: all clean
+
+
+###################### Step 5
+# JS_FILES=src/app.js
+# DIST=dist
+# TODAY=$(shell date +%Y-%B-%d)
+# TIMESTAMP="//Created at $(TODAY) \n\n"
+#
+# all: dist app.js
+#
+# dist:
+# 	@ mkdir -p $@
+#
+# app.js:
+#   @ echo $(TIMESTAMP) > $(DIST)/$@
+#   @ cat $(JS_FILES) >> $(DIST)/$@
+#
+# clean:
+# 	@ rm -rf $(DIST)
+#
+# .PHONY: all clean
+
+###################### Final
+# JS_FILES=src/app.js
+# DIST=dist
+# TODAY=$(shell date +%Y-%B-%d)
+# TIMESTAMP="//Created at $(TODAY) \n\n"
+#
+# all: $(DIST) app.js
+#
+# $(DIST):
+# 	@ mkdir -p $@
+#
+# app.js:
+# 	@ echo $(TIMESTAMP) > $(DIST)/$@
+# 	@ cat $(JS_FILES) >> $(DIST)/$@
+#
+#
+# clean:
+# 	@ rm -rf $(DIST)
+#
+# .PHONY: all clean
